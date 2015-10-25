@@ -40,8 +40,8 @@ gulp.task('package', ['sync-meta'], function() {
   packager({
     dir: './src',
     name: packageJson.name,
-    platform: ['win32', 'darwin'],
-    arch: 'all',
+    platform: ['win32', 'darwin', 'linux'],
+    arch: 'x64',
     version: '0.33.6',
     out: './release',
     prune: true,
