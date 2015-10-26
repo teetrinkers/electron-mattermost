@@ -21,6 +21,12 @@ catch (e) {
   window.location.href = './settings.html';
 }
 
+// Keep the focus on the webview.
+// Without this, the webview loses focus when switching to another app and back.
+window.addEventListener('focus', function(e) {
+  webView.focus();
+});
+
 var menu = contextMenu.createDefault();
 window.addEventListener('contextmenu', function(e) {
   menu.popup(remote.getCurrentWindow());
@@ -70,7 +76,7 @@ var showUnreadBadge = function(unreadCount) {
       break;
     default:
   }
-}
+};
 
 webView.addEventListener('ipc-message', function(event) {
   switch (event.channel) {
