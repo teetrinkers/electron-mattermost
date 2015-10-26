@@ -1,29 +1,77 @@
 'use strict';
 
 var Menu = require('menu');
+var app = require('app');
 
 var createTemplate = function(mainWindow) {
-  var app_name = require('app').getName()
-  var first_menu_name = (process.platform === 'darwin') ? app_name : 'File';
+  var app_name = app.getName();
   var template = [];
-  template.push({
-    label: first_menu_name,
-    submenu: [{
-      label: 'About ' + app_name,
-      role: 'about'
-    }, {
-      label: 'Settings',
-      click: function(item, focusedWindow) {
-        mainWindow.loadUrl('file://' + __dirname + '/settings.html');
-      }
-    }, {
-      label: 'Quit',
-      accelerator: 'CmdOrCtrl+Q',
-      click: function(item, focusedWindow) {
-        require('app').quit();
-      }
-    }]
-  });
+
+  if (process.platform === 'darwin') {
+    template.push({
+      label: app_name,
+      submenu: [
+        {
+          label: 'About ' + app_name,
+          role: 'about'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Settings',
+          click: function(item, focusedWindow) {
+            mainWindow.loadUrl('file://' + __dirname + '/settings.html');
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Hide ' + app_name,
+          accelerator: 'Command+H',
+          role: 'hide'
+        },
+        {
+          label: 'Hide Others',
+          accelerator: 'Command+Shift+H',
+          role: 'hideothers'
+        },
+        {
+          label: 'Show All',
+          role: 'unhide'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Quit',
+          accelerator: 'Command+Q',
+          click: function() { app.quit(); }
+        }
+      ]
+    });
+  } else {
+    template.push({
+      label: 'File',
+      submenu: [{
+        label: 'About ' + app_name,
+        role: 'about'
+      }, {
+        label: 'Settings',
+        click: function(item, focusedWindow) {
+          mainWindow.loadUrl('file://' + __dirname + '/settings.html');
+        }
+      }, {
+        label: 'Quit',
+        accelerator: 'CmdOrCtrl+Q',
+        click: function(item, focusedWindow) {
+          require('app').quit();
+        }
+      }]
+    });
+  }
+
   template.push({
     label: 'Edit',
     submenu: [{
@@ -54,6 +102,7 @@ var createTemplate = function(mainWindow) {
       role: 'selectall'
     }, ]
   });
+
   template.push({
     label: 'View',
     submenu: [{
@@ -95,6 +144,24 @@ var createTemplate = function(mainWindow) {
       }
     }, ]
   });
+
+  template.push({
+    label: 'Window',
+    role: 'window',
+    submenu: [
+      {
+        label: 'Minimize',
+        accelerator: 'CmdOrCtrl+M',
+        role: 'minimize'
+      },
+      {
+        label: 'Close',
+        accelerator: 'CmdOrCtrl+W',
+        role: 'close'
+      },
+    ]
+  });
+
   return template;
 };
 
