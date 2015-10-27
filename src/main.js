@@ -50,7 +50,8 @@ app.on('ready', function() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    icon: 'file://' + __dirname + 'resources/mattermost.png'
   });
 
   // and load the index.html of the app.

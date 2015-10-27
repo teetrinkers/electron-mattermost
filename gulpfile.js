@@ -20,7 +20,7 @@ gulp.task('prettify', ['sync-meta'], function() {
       },
       js: {
         indentSize: 2,
-        braceStyle: "end-expand"
+        braceStyle: 'end-expand'
       }
     }))
     .pipe(gulp.dest('.'));
@@ -44,9 +44,10 @@ gulp.task('package', ['sync-meta'], function() {
     arch: 'x64',
     version: '0.33.6',
     out: './release',
+    icon: 'mattermost',
     prune: true,
     overwrite: true,
-    "app-version": packageJson.version
+    'app-version': packageJson.version
   }, function(err, appPath) {
     if (err) {
       console.log(err);
