@@ -39,7 +39,7 @@ gulp.task('package', ['sync-meta'], function() {
   var packageJson = require('./src/package.json');
   packager({
     dir: './src',
-    name: packageJson.name,
+    name: 'mattermost',
     platform: ['win32', 'darwin', 'linux'],
     arch: 'x64',
     version: '0.33.6',
